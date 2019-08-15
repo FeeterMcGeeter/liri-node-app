@@ -7,9 +7,9 @@
 1. Navigate to the command line
 2. Run the following command 
    - node liri.js ... followed by one of the following
-     - concert-this <artist/band name here>
-     - spotify-this-song <song name here>
-     - movie-this <movie name here>
+     - concert-this 'artist/band name here'
+     - spotify-this-song 'song name here'
+     - movie-this 'movie name here'
 
 You can even run the following command to see the information from the default text file
 - node liri.js do-what-it-says
