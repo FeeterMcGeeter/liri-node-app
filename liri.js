@@ -10,8 +10,8 @@ var spotify = new Spotify(keys.spotify);
 var command = process.argv[2];
 var parameter = process.argv.slice(3).join(' ');
 
-function spotifySearch(song) {
-    if (!song) {
+function spotifySearch() {
+    if (parameter === undefined) {
         song = 'The Sign by Ace of Base';
     } else {
         song = parameter;
@@ -48,13 +48,13 @@ function concertSearch() {
     )
 }
 
-function movieSearch(movie) {
-    if (!movie) {
+function movieSearch() {
+    if (parameter === undefined) {
         movie = 'Mr. Nobody';
     } else {
         movie = parameter;
     }
-    axios.get(`http://www.omdbapi.com/?t=${movie}&y=&plot=short&apikey=trilogy`).then(
+    axios.get(`http://www.omdbapi.com/?t=${parameter}&y=&plot=short&apikey=trilogy`).then(
         function (response) {
             console.log('================================');
             console.log('Title: ' + response.data.Title);
@@ -79,7 +79,6 @@ function doWhatItSays() {
         if (err) {
             return console.log('Error occurred: ' + err);
         }
-        
         runApp();
     })
 }
