@@ -72,26 +72,44 @@ function movieSearch() {
 
 function doWhatItSays() {
     fs.readFile('random.txt', 'utf8', function (err, data) {
-        var dataArray = data.split(',');
-        command = dataArray[0];
-        parameter = dataArray[1];
-
         if (err) {
             return console.log('Error occurred: ' + err);
         }
-        runApp();
+
+        var dataArray = data.split(',');
+        command = dataArray[0];
+        parameter = dataArray[1];
+        console.log('================================');
+        console.log(command + ', ' + parameter);
+        console.log('================================');
     })
 }
 
+fs.appendFile('log.txt', parameter, function(err) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(parameter);
+    }
+})
+
 function runApp() {
-    if (command === 'spotify-this-song') {
-        spotifySearch();
-    } else if (command === 'concert-this') {
-        concertSearch();
-    } else if (command === 'movie-this') {
-        movieSearch();
-    } else if (command === 'do-what-it-says') {
-        doWhatItSays();
+    switch (command) {
+        case 'spotify-this-song':
+            spotifySearch();
+            break;
+
+        case 'concert-this':
+            concertSearch();
+            break;
+
+        case 'movie-this':
+            movieSearch();
+            break;
+
+        case 'do-what-it-says':
+            doWhatItSays();
+            break;
     }
 }
 
