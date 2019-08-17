@@ -24,16 +24,13 @@ You can even run the following command to see the information from the default t
 * Javascript
 
 ### Videos of each command
-* spotify-this-song
-(https://drive.google.com/file/d/1BulcnSy_HBN-hJz7pKFUb_-324yNJZfF/view)
+* [spotify-this-song](https://drive.google.com/file/d/1BulcnSy_HBN-hJz7pKFUb_-324yNJZfF/view)
 
-* concert-this
-(https://drive.google.com/file/d/1U7ujpiGijiU8LQVZc6CzfeGQSjjshGL5/view)
+* [concert-this](https://drive.google.com/file/d/1U7ujpiGijiU8LQVZc6CzfeGQSjjshGL5/view)
 
-* movie-this
-(https://drive.google.com/file/d/1Yx6-r7ZDZprUa0Uo-XAWJLCtKWu8GsbR/view)
+* [movie-this](https://drive.google.com/file/d/1Yx6-r7ZDZprUa0Uo-XAWJLCtKWu8GsbR/view)
 
-* do-what-it-says
+* [do-what-it-says]()
 
 
 ### Role in App Development

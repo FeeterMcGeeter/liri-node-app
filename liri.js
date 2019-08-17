@@ -48,13 +48,15 @@ function concertSearch() {
     )
 }
 
-function movieSearch() {
-    if (parameter === undefined) {
+function movieSearch(parameter) {
+    var movie = '';
+
+    if (!parameter) {
         movie = 'Mr. Nobody';
     } else {
         movie = parameter;
     }
-    axios.get(`http://www.omdbapi.com/?t=${parameter}&y=&plot=short&apikey=trilogy`).then(
+    axios.get(`http://www.omdbapi.com/?t=${movie}&y=&plot=short&apikey=trilogy`).then(
         function (response) {
             console.log('================================');
             console.log('Title: ' + response.data.Title);
@@ -68,6 +70,7 @@ function movieSearch() {
             console.log('================================');
         }
     )
+    appendTheThing(command, parameter);
 }
 
 function doWhatItSays() {
@@ -79,32 +82,38 @@ function doWhatItSays() {
         var dataArray = data.split(',');
         command = dataArray[0];
         parameter = dataArray[1];
+
         console.log('================================');
         console.log(command + ', ' + parameter);
         console.log('================================');
+
+        spotifySearch(parameter);
     })
 }
 
-fs.appendFile('log.txt', parameter, function(err) {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log(parameter);
-    }
-})
+function appendTheThing(command, parameter) {
+    fs.appendFile('log.txt', command + ' ' + parameter + ', ', function (err) {
+
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('added command to log.txt');
+        }
+    })
+}
 
 function runApp() {
     switch (command) {
         case 'spotify-this-song':
-            spotifySearch();
+            spotifySearch(parameter);
             break;
 
         case 'concert-this':
-            concertSearch();
+            concertSearch(parameter);
             break;
 
         case 'movie-this':
-            movieSearch();
+            movieSearch(parameter);
             break;
 
         case 'do-what-it-says':
