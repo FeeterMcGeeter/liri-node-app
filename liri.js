@@ -10,8 +10,10 @@ var spotify = new Spotify(keys.spotify);
 var command = process.argv[2];
 var parameter = process.argv.slice(3).join(' ');
 
-function spotifySearch() {
-    if (parameter === undefined) {
+function spotifySearch(parameter) {
+    var song = '';
+
+    if (!parameter) {
         song = 'The Sign by Ace of Base';
     } else {
         song = parameter;
@@ -31,6 +33,8 @@ function spotifySearch() {
         console.log('Album: ' + data.tracks.items[0].album.name);
         console.log('================================');
     })
+
+    appendTheThing(command, parameter);
 }
 
 function concertSearch() {
@@ -46,6 +50,8 @@ function concertSearch() {
             }
         }
     )
+
+    appendTheThing(command, parameter);
 }
 
 function movieSearch(parameter) {
