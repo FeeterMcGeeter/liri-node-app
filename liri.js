@@ -1,5 +1,8 @@
 require('dotenv').config();
 
+var colors = require('colors');
+
+// ===== GLOBAL VARIABLES =====
 var fs = require('fs');
 var axios = require('axios');
 var keys = require('./keys.js');
@@ -10,6 +13,7 @@ var spotify = new Spotify(keys.spotify);
 var command = process.argv[2];
 var parameter = process.argv.slice(3).join(' ');
 
+// ===== FUNCTION FOR THE SPOTIFY API =====
 function spotifySearch(parameter) {
     var song = '';
 
@@ -26,27 +30,28 @@ function spotifySearch(parameter) {
             console.log('Error occurred: ' + err);
             return;
         }
-        console.log('================================');
-        console.log('Artist: ' + data.tracks.items[0].artists[0].name);
-        console.log('Song: ' + data.tracks.items[0].name);
-        console.log('Preview: ' + data.tracks.items[0].preview_url);
-        console.log('Album: ' + data.tracks.items[0].album.name);
-        console.log('================================');
+        console.log('==========SONG INFO=========='.bgWhite.black);
+        console.log('Artist:'.bgGreen + ' ' + data.tracks.items[0].artists[0].name);
+        console.log('Song:'.bgGreen + ' ' + data.tracks.items[0].name);
+        console.log('Preview:'.bgGreen + ' ' + data.tracks.items[0].preview_url);
+        console.log('Album:'.bgGreen + ' ' + data.tracks.items[0].album.name);
+        console.log('============================='.bgWhite.black);
     })
 
     appendTheThing(command, parameter);
 }
 
+// ===== FUNCTION FOR THE BANDS IN TOWN API =====
 function concertSearch() {
     axios.get(`https://rest.bandsintown.com/artists/${parameter}/events?app_id=codingbootcamp`).then(
         function (response) {
             var results = response.data;
             for (var i = 0; i < results.length; i++) {
-                console.log('================================');
-                console.log('Venue: ' + results[i].venue.name);
-                console.log('City: ' + results[i].venue.city);
-                console.log('Date: ' + moment(results[i].datetime).format('L'));
-                console.log('================================');
+                console.log('==========CONCERT INFO=========='.bgWhite.black);
+                console.log('Venue:'.bgBlue + ' ' + results[i].venue.name);
+                console.log('City:'.bgBlue + ' ' + results[i].venue.city);
+                console.log('Date:'.bgBlue + ' ' + moment(results[i].datetime).format('L'));
+                console.log('================================'.bgWhite.underline.black);
             }
         }
     )
@@ -54,31 +59,35 @@ function concertSearch() {
     appendTheThing(command, parameter);
 }
 
+// ===== FUNCTION FOR THE OMDB API =====
 function movieSearch(parameter) {
     var movie = '';
 
     if (!parameter) {
         movie = 'Mr. Nobody';
+        console.log("If you haven't watched 'Mr. Nobody', then you should: http://www.imdb.com/title/tt0485947/");
+        console.log("It's on Netflix!");
     } else {
         movie = parameter;
     }
     axios.get(`http://www.omdbapi.com/?t=${movie}&y=&plot=short&apikey=trilogy`).then(
         function (response) {
-            console.log('================================');
-            console.log('Title: ' + response.data.Title);
-            console.log('Year Released: ' + response.data.Year);
-            console.log('IMDB Rating: ' + response.data.imdbRating);
-            console.log('Rotten Tomatoes: ' + response.data.Ratings[1].Value);
-            console.log('Country Produced: ' + response.data.Country);
-            console.log('Language: ' + response.data.Language);
-            console.log('Plot: ' + response.data.Plot);
-            console.log('Actors: ' + response.data.Actors);
-            console.log('================================');
+            console.log('==========MOVIE INFO=========='.bgWhite.black);
+            console.log('Title:'.bgMagenta + ' ' + response.data.Title);
+            console.log('Year Released:'.bgMagenta + ' ' + response.data.Year);
+            console.log('IMDB Rating:'.bgMagenta + ' ' + response.data.imdbRating);
+            console.log('Rotten Tomatoes:'.bgMagenta + ' ' + response.data.Ratings[1].Value);
+            console.log('Country Produced:'.bgMagenta + ' ' + response.data.Country);
+            console.log('Language:'.bgMagenta + ' ' + response.data.Language);
+            console.log('Plot:'.bgMagenta + ' ' + response.data.Plot);
+            console.log('Actors:'.bgMagenta + ' ' + response.data.Actors);
+            console.log('=============================='.bgWhite.black);
         }
     )
     appendTheThing(command, parameter);
 }
 
+// ===== THIS FUNCTION DISPLAYS THE DEFAULT INFORMATION THAT IS IN THE RANDOM.TXT FILE =====
 function doWhatItSays() {
     fs.readFile('random.txt', 'utf8', function (err, data) {
         if (err) {
@@ -89,16 +98,15 @@ function doWhatItSays() {
         command = dataArray[0];
         parameter = dataArray[1];
 
-        console.log('================================');
-        console.log(command + ', ' + parameter);
-        console.log('================================');
-
-        spotifySearch(parameter);
+        console.log('================================'.bgWhite.black);
+        console.log(`${command}', ${parameter}`.cyan);
+        console.log('================================'.bgWhite.black);
     })
 }
 
+// ===== THIS FUNCTION APPENDS THE COMMAND AND THE PARAMETER ENTERED BY THE USER INSIDE OF LOG.TXT =====
 function appendTheThing(command, parameter) {
-    fs.appendFile('log.txt', command + ' ' + parameter + ', ', function (err) {
+    fs.appendFile('log.txt', command + ' ' + parameter + '\n', function (err) {
 
         if (err) {
             console.log(err);
@@ -108,6 +116,7 @@ function appendTheThing(command, parameter) {
     })
 }
 
+// ===== THIS FUNCTION TELLS THE APP WHAT FUNCTION TO RUN DEPENDING ON THE COMMAND ENTERED BY THE USER =====
 function runApp() {
     switch (command) {
         case 'spotify-this-song':

@@ -28,9 +28,9 @@ You can even run the following command to see the information from the default t
 
 * [concert-this](https://drive.google.com/file/d/1U7ujpiGijiU8LQVZc6CzfeGQSjjshGL5/view)
 
-* [movie-this](https://drive.google.com/file/d/1Yx6-r7ZDZprUa0Uo-XAWJLCtKWu8GsbR/view)
+* [movie-this](https://drive.google.com/file/d/1eOaTZK5z4BbvoS_Y1WIcoT5kjRiTbXt3/view)
 
-* [do-what-it-says]()
+* [do-what-it-says](https://drive.google.com/file/d/174ZubJqbvwYreJK9dGJuj5I3E9ZXauBm/view)
 
 
 ### Role in App Development
